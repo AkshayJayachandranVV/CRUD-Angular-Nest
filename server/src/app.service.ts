@@ -70,6 +70,8 @@ export class AppService {
     try {
       console.log(id)
 
+      console.log("alll users",this.users)
+
       const user = this.users.find(user => user.id === id);
 
       console.log(user)
