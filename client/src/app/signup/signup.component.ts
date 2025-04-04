@@ -47,6 +47,7 @@ export class SignupComponent {
        }})
         } catch (error) {
           console.log(error)
+          this.errorMsg = "Something went wrong. Please try again."; 
         }
     }
 }

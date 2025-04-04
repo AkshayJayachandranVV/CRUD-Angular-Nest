@@ -3,6 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+
+interface loginREsponse {
+  success : boolean;
+  message : string;
+}
+
 @Component({
   selector: 'app-login',
   imports: [FormsModule,CommonModule],
@@ -15,7 +21,7 @@ export class LoginComponent {
   password : string = ""
   errorMsg : string = ""
 
-  constructor(private http : HttpClient , ) {}
+  constructor(private http : HttpClient , private router: Router) {}
 
 
   login(){
@@ -26,11 +32,19 @@ export class LoginComponent {
         return;
        }
        
-       
- 
-
+       this.http.post<loginREsponse>("http://localhost:3000/login",{email : this.email ,password : this.password}).subscribe({
+        next : (response) =>{
+          console.log(response)
+          if(response.success) {
+            this.router.navigate(['/home'])
+          }else{
+            this.errorMsg = response.message
+          }
+        }
+       })
     } catch (error) {
-      
+      console.error("Login request failed:", error);
+      this.errorMsg = "Something went wrong. Please try again."; 
     }
   }
 
