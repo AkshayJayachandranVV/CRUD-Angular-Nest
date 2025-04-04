@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 interface loginREsponse {
   success : boolean;
   message : string;
+  id : string;
 }
 
 @Component({
@@ -37,6 +38,7 @@ export class LoginComponent {
           console.log(response)
           if(response.success) {
             this.router.navigate(['/home'])
+            localStorage.setItem("id",response.id)
           }else{
             this.errorMsg = response.message
           }
