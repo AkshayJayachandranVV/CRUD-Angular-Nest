@@ -22,12 +22,19 @@ export class SignupComponent {
     username: string = "";
     email: string = ""
     password: string = ""
-    errorMsg :string = ""
+    errorMsg :string | undefined = ""
     
 
     constructor(private http : HttpClient,private router : Router) {}
 
       signup() {
+        try {
+          
+        if (!this.username || !this.email || !this.mobile || !this.password) {
+          this.errorMsg = "All fields are required!";
+          return;
+         }
+
       console.log("got data",this.username)
        this.http.post<SignupResponse>("http://localhost:3000/signup",{username: this.username,email:this.email,mobile:this.mobile,password:this.password})
        .subscribe({next : (response)=>{
@@ -38,6 +45,9 @@ export class SignupComponent {
           this.errorMsg = response.message
         }
        }})
+        } catch (error) {
+          console.log(error)
+        }
     }
 }
 

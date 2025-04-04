@@ -1,24 +1,30 @@
-<div >
-    <div class="main-div" > 
-        <div class="signup-head" >Sign up</div>
-         <div class="singup-form" >
-                <div class="form-group">
-                      <label for="">Username</label>
-                      <input placeholder="Username" type="text" [(ngModel)]="username" name="username">
-                </div>
-                <div class="form-group">
-                    <label for="">Email</label>
-                    <input placeholder="EMail" type="text" [(ngModel)]="email" name="email">
+<div class="container">
+      <div class="main-div">
+          <div class="signup-head">Sign Up</div>
+          <div class="signup-form">
+              <div class="form-group">
+                  <label for="username">Username</label>
+                  <input id="username" placeholder="Enter your username" type="text" [(ngModel)]="username" #usernameRef="ngModel" required minlength="3" name="username"  >
+                  <div class="error" *ngIf="usernameRef.invalid && usernameRef.touched">Username is required (min 3 chars)</div>
               </div>
               <div class="form-group">
-                <label for="">Mobile</label>
-                <input placeholder="Mobile" type="text" [(ngModel)]="mobile" name="mobile">
+                  <label for="email">Email</label>
+                  <input id="email" placeholder="Enter your email" type="email" [(ngModel)]="email" required email #emailRef="ngModel" name="email">
+                  <div class="error"  *ngIf="emailRef.invalid" >Invalid Email</div>
+              </div>
+              <div class="form-group">
+                  <label for="mobile">Mobile</label>
+                  <input id="mobile" placeholder="Enter your mobile number" type="text" [(ngModel)]="mobile" #mobileRef="ngModel" required minlength="10" name="mobile">
+                  <div class="error" *ngIf="mobileRef.invalid && usernameRef.touched " >MObile number should be 10 digits</div>
+              </div>
+              <div class="form-group">
+                  <label for="password">Password</label>
+                  <input id="password" placeholder="Enter your password" type="password" [(ngModel)]="password" #passRef="ngModel" required minlength="4"  name="password">
+                  <div class="error" *ngIf="passRef.invalid && passRef.touched " >Password contain 4 length</div>
+              </div>
+              <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+              <button (click)="signup()">Sign Up</button>
           </div>
-          <div class="form-group">
-            <label for="">Password</label>
-            <input placeholder="Password" type="text" [(ngModel)]="password" name="password">
       </div>
-      <button (click)="signup()" >Submit</button>
-         </div>
-    </div>
-</div>
+  </div>
+  
